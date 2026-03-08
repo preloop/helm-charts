@@ -3,7 +3,7 @@ entries:
   preloop:
   - apiVersion: v2
     appVersion: 0.8.0-beta.4
-    created: "2026-03-08T21:11:28.019284836Z"
+    created: "2026-03-08T21:26:47.65335827Z"
     dependencies:
     - alias: nats
       condition: nats.enabled
@@ -31,4 +31,4 @@ entries:
     urls:
     - https://github.com/preloop/preloop/releases/download/v0.8.0-beta.4/preloop-0.8.0-beta.4.tgz
     version: 0.8.0-beta.4
-generated: "2026-03-08T21:11:28.015889479Z"
+generated: "2026-03-08T21:26:47.650228155Z"
