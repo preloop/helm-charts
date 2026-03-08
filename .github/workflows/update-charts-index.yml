@@ -1,0 +1,75 @@
+name: Update Charts Index
+
+on:
+  repository_dispatch:
+    types: [preloop-release]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g. v0.8.0-beta.3)"
+        required: true
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ github.event.inputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${{ github.event.client_payload.tag }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+
+      - name: Checkout or create gh-pages
+        run: |
+          git fetch origin gh-pages 2>/dev/null || true
+          if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+            git rm -rf . 2>/dev/null || true
+            echo 'apiVersion: v1
+entries:
+  preloop: []' > index.yaml
+            echo 'charts.preloop.ai' > CNAME
+          fi
+
+      - name: Download chart from preloop release
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          VERSION="${TAG#v}"
+          curl -sSL -o "preloop-${VERSION}.tgz" \
+            "https://github.com/preloop/preloop/releases/download/${TAG}/preloop-${VERSION}.tgz"
+
+      - name: Update index
+        run: |
+          helm repo index . \
+            --url "https://github.com/preloop/preloop/releases/download/${{ steps.tag.outputs.tag }}" \
+            --merge index.yaml
+
+      - name: Ensure CNAME for custom domain
+        run: echo 'charts.preloop.ai' > CNAME
+
+      - name: Push to gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.yaml CNAME 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add preloop ${{ steps.tag.outputs.tag }}"
+            git push origin gh-pages
+          fi
