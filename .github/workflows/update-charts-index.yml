@@ -40,9 +40,7 @@ jobs:
           else
             git checkout --orphan gh-pages
             git rm -rf . 2>/dev/null || true
-            echo 'apiVersion: v1
-entries:
-  preloop: []' > index.yaml
+            printf '%s\n' 'apiVersion: v1' 'entries:' '  preloop: []' > index.yaml
             echo 'charts.preloop.ai' > CNAME
           fi
 
