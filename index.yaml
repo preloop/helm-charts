@@ -3,7 +3,7 @@ entries:
   preloop:
   - apiVersion: v2
     appVersion: 0.10.0
-    created: "2026-07-10T02:03:56.220342481Z"
+    created: "2026-07-10T02:33:15.303239178Z"
     dependencies:
     - alias: nats
       condition: nats.enabled
@@ -12,7 +12,7 @@ entries:
       version: 1.3.9
     description: A Helm chart for Preloop - The policy engine for AI agents with approval
       workflows and audit trails
-    digest: b03b979cb12c5220f893796b040a46f96087482d7325eaba8612fbde23d0a78e
+    digest: b0cc92d1a99a1a3fa7ac9b16268159d9a47b87e912c85e9b7504faf8e3393e6f
     home: https://preloop.ai
     icon: https://preloop.ai/assets/favicon.png
     keywords:
@@ -361,4 +361,4 @@ entries:
     urls:
     - https://github.com/preloop/preloop/releases/download/v0.8.0-beta.4/preloop-0.8.0-beta.4.tgz
     version: 0.8.0-beta.4
-generated: "2026-07-10T02:03:56.216439714Z"
+generated: "2026-07-10T02:33:15.299759963Z"
