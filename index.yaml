@@ -2,6 +2,36 @@ apiVersion: v1
 entries:
   preloop:
   - apiVersion: v2
+    appVersion: 0.12.2
+    created: "2026-07-17T23:29:19.815750852Z"
+    dependencies:
+    - alias: nats
+      condition: nats.enabled
+      name: nats
+      repository: https://nats-io.github.io/k8s/helm/charts
+      version: 1.3.9
+    description: A Helm chart for Preloop - The policy engine for AI agents with approval
+      workflows and audit trails
+    digest: aabb965b99800f61b163f59e995d652fbb1139830297a505d473e0e40013a198
+    home: https://preloop.ai
+    icon: https://preloop.ai/assets/favicon.png
+    keywords:
+    - preloop
+    - automation
+    - human-in-the-loop
+    - mcp
+    - jira
+    - github
+    - gitlab
+    maintainers:
+    - email: hello@preloop.ai
+      name: Spacecode AI Inc. Team
+    name: preloop
+    type: application
+    urls:
+    - https://github.com/preloop/preloop/releases/download/v0.12.2/preloop-0.12.2.tgz
+    version: 0.12.2
+  - apiVersion: v2
     appVersion: 0.12.1
     created: "2026-07-17T17:36:22.719051209Z"
     dependencies:
@@ -511,4 +541,4 @@ entries:
     urls:
     - https://github.com/preloop/preloop/releases/download/v0.8.0-beta.4/preloop-0.8.0-beta.4.tgz
     version: 0.8.0-beta.4
-generated: "2026-07-17T17:36:22.715376488Z"
+generated: "2026-07-17T23:29:19.810835439Z"
